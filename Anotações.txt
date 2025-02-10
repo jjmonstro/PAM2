@@ -1,0 +1,9 @@
+dotnet new webapi
+Para criar um template de api do dotnet
+
+dotnet build 
+Compilar o código
+
+dotnet run
+executa de vez
+
