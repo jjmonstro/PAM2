@@ -25,10 +25,52 @@ namespace RpgApi.Controllers
             new Personagem() { Id = 7, Nome = "Radagast", PontosVida=100, Forca=25, Defesa=11, Inteligencia=35, Classe=ClasseEnum.Mago }
         };
 
+        [HttpGet("Get")]
         public IActionResult GetFirst()
         {
             Personagem p = personagens[0];
             return Ok(p);
+        }
+
+        [HttpGet("GetAll")]
+        public IActionResult Get()
+        {
+            return Ok(personagens);
+        }
+
+        [HttpPost]
+        public IActionResult AddPersonagem(Personagem novopersonagem)
+        {
+            personagens.Add(novopersonagem);
+            return Ok(personagens);
+        }
+
+        [HttpPut]
+        public IActionResult UpdatePersonagem(Personagem p){
+            Personagem personagemAlterado = personagens.Find(pers=> pers.Id == p.Id);
+            personagemAlterado.Nome = p.Nome;
+            personagemAlterado.PontosVida = p.PontosVida;
+            personagemAlterado.Forca = p.Forca;
+            personagemAlterado.Defesa = p.Defesa;
+            personagemAlterado.Inteligencia = p.Inteligencia;
+            personagemAlterado.Classe = p.Classe;
+
+            return Ok(personagens);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id){
+            personagens.RemoveAll(pers => pers.Id == id);
+            return Ok(personagens);
+        }
+
+        [HttpGet("GetByEnum/{enumId}")]
+        public IActionResult GetByEnum(int enumId){
+            ClasseEnum enumDigitado = (ClasseEnum)enumId;
+
+            List<Personagem> listaBusca = personagens.FindAll(p => p.Classe == enumDigitado);
+
+            return Ok(listaBusca);
         }
     }
 }
