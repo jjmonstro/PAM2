@@ -7,3 +7,9 @@ Compilar o código
 dotnet run
 executa de vez
 
+Para conectar com banco de dados
+- Comandos para instalaçao de pacotes:
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
