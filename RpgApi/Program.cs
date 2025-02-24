@@ -47,7 +47,10 @@ app.MapGet("/weatherforecast", () =>
 
 app.MapControllers();
 app.Run();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 77e5c1c74e71c7e641c43ed248fd220e723dda2a
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
