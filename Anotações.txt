@@ -8,6 +8,8 @@ dotnet run
 executa de vez
 
 Para conectar com banco de dados
+dotnet ef database update - para executar os scripts do branco
+
 - Comandos para instalaçao de pacotes:
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet tool install --global dotnet-ef
