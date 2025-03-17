@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 //conectar com o banco usando o que ta la no appsetings
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoLocal"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoSomee"));
 });
 
 // Add services to the container.

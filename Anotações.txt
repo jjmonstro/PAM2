@@ -15,3 +15,6 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet tool install --global dotnet-ef
 dotnet add package Microsoft.EntityFrameworkCore.Design
 
+PARADAS DE NUVEM
+-gerar arquivos de publicação
+dotnet publish -c release -o ./publish
