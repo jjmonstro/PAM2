@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RpgApi.Models;
 using RpgApi.Models.Enuns;
@@ -18,18 +19,13 @@ namespace RpgApi.Data
 
          public DbSet<Personagem> TB_PERSONAGENS { get; set; }
          public DbSet<Arma> TB_ARMAS { get; set; }
+         public DbSet<Arma> TB_USUARIOS { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Personagem>().ToTable("TB_PERSONAGENS");
             modelBuilder.Entity<Arma>().ToTable("TB_ARMAS");
             modelBuilder.Entity<Usuario>().ToTable("TB_USUARIOS");
-
-            modelBuilder.Entity<Usuario>()
-                .HasMany(e => e.Personagens)
-                .WithOne(e => e.Usuario)
-                .HasForeignKey(e => e.UsuarioId)
-                .IsRequired(false);
             
             modelBuilder.Entity<Personagem>().HasData
             (
@@ -55,8 +51,27 @@ namespace RpgApi.Data
                 new Arma() { Id = 7, Nome = "Lança", Dano = 999}
             );
 
+            modelBuilder.Entity<Usuario>()
+                .HasMany(e => e.Personagens)
+                .WithOne(e => e.Usuario)
+                .HasForeignKey(e => e.UsuarioId)
+                .IsRequired(false);
+
             Usuario user = new Usuario();
             Criptografia.CriarPasswordHash("123456", out byte[] hash, out byte[] salt);
+            user.Id = 1;
+            user.Username = "UsuarioAdmin";
+            user.PasswordString = string.Empty;
+            user.PasswordHash = hash;
+            user.PasswordSalt = salt;
+            user.Perfil = "Admin";
+            user.Email = "seuEmail@example.com";
+            user.Latitude = -23.5200241;
+            user.Longitude = -46.596498;
+
+            modelBuilder.Entity<Usuario>().HasData(user);
+            
+            modelBuilder.Entity<Usuario>().Property(u => u.Perfil).HasDefaultValue("Jogador");   
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
