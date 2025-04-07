@@ -27,6 +27,13 @@ namespace RpgApi.Data
             modelBuilder.Entity<Arma>().ToTable("TB_ARMAS");
             modelBuilder.Entity<Usuario>().ToTable("TB_USUARIOS");
             
+            modelBuilder.Entity<Personagem>()
+                .HasOne(e => e.Arma)
+                .WithOne(e => e.Personagem)
+                .HasForeignKey<Arma>(e => e.Personagem)
+                .IsRequired();
+
+
             modelBuilder.Entity<Personagem>().HasData
             (
                 new Personagem() { Id = 1, Nome = "Frodo", PontosVida = 100, Forca = 17, Defesa = 23, Inteligencia = 33, Classe = ClasseEnum.Cavaleiro, UsuarioId = 1},
@@ -42,13 +49,13 @@ namespace RpgApi.Data
 
             modelBuilder.Entity<Arma>().HasData
             (
-                new Arma() { Id = 1, Nome = "Espada de Madeira", Dano = 5},
-                new Arma() { Id = 2, Nome = "Espada de Ferro", Dano = 10},
-                new Arma() { Id = 3, Nome = "Espada de Diamante", Dano = 15},
-                new Arma() { Id = 4, Nome = "Cajado de Fogo", Dano = 20},
-                new Arma() { Id = 5, Nome = "Cajado de Gelo", Dano = 25},
-                new Arma() { Id = 6, Nome = "Cajado de Relâmpago", Dano = 35},
-                new Arma() { Id = 7, Nome = "Lança", Dano = 999}
+                new Arma() { Id = 1, Nome = "Espada de Madeira", Dano = 5, PersonagemId = 1},
+                new Arma() { Id = 2, Nome = "Espada de Ferro", Dano = 10, PersonagemId = 2},
+                new Arma() { Id = 3, Nome = "Espada de Diamante", Dano = 15, PersonagemId = 3},
+                new Arma() { Id = 4, Nome = "Cajado de Fogo", Dano = 20, PersonagemId = 4},
+                new Arma() { Id = 5, Nome = "Cajado de Gelo", Dano = 25, PersonagemId = 5},
+                new Arma() { Id = 6, Nome = "Cajado de Relâmpago", Dano = 35, PersonagemId = 6},
+                new Arma() { Id = 7, Nome = "Lança", Dano = 999, PersonagemId = 7}
             );
 
             modelBuilder.Entity<Usuario>()
