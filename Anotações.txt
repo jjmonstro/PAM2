@@ -15,6 +15,7 @@ dotnet ef database update - para executar os scripts do branco
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet tool install --global dotnet-ef
 dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
 
 PARADAS DE NUVEM
 -gerar arquivos de publicação
