@@ -103,5 +103,18 @@ namespace RpgApi.Controllers
                 return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
+
+        [HttpGet("PersonagemRandom")]
+        public async Task<IActionResult> Sorteio()
+        {
+            List<Personagem> personagens = await _context.TB_PERSONAGENS.ToListAsync();
+
+            int sorteio = new Random().Next(0, personagens.Count);
+
+            Personagem p = personagens[sorteio];
+
+            string msg = string.Format("Nº Sorteado {0}. Personagem - {1}", sorteio, p.Nome);
+            return Ok(msg);
+        }
     }
 }

@@ -85,7 +85,8 @@ namespace RpgApi.Controllers
             try
             {
                 PersonagemHabilidade? ph = await _context.TB_PERSONAGENS_HABILIDADES
-                    .FirstOrDefaultAsync(ph => ph.PersonagemId == personagemHabilidade.PersonagemId && ph.HabilidadeId == personagemHabilidade.HabilidadeId);
+                    .FirstOrDefaultAsync(ph => ph.PersonagemId == personagemHabilidade.PersonagemId 
+                    && ph.HabilidadeId == personagemHabilidade.HabilidadeId);
 
                 _context.TB_PERSONAGENS_HABILIDADES.Remove(ph);
                 int linhasAfetadas = await _context.SaveChangesAsync();
