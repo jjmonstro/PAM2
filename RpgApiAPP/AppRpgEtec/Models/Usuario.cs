@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace AppRpgEtec.Models
 {
-    internal class Usuario
+    public class Usuario
     {
-        public class I
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string PasswordString { get; set; }
+        public string Perfil { get; set; }
+        public string token { get; set; }
+        public byte[] Foto { get; set; }
+        public string Email { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+
     }
 }
