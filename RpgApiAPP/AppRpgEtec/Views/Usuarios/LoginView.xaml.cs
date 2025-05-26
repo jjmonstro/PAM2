@@ -4,11 +4,12 @@ namespace AppRpgEtec.Views.Usuarios;
 
 public partial class LoginView : ContentPage
 {
+	UsuarioViewModel usuarioViewModel;
 	public LoginView()
 	{
 		InitializeComponent();
 
-		UsuarioViewModel usuarioViewModel = new UsuarioViewModel();
+		usuarioViewModel = new UsuarioViewModel();
 		BindingContext = usuarioViewModel;
 	}
 }
