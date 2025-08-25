@@ -29,8 +29,6 @@ namespace AppRpgEtec.ViewModels.Usuarios
             DirecionarCadastroCommand = new Command(async () => await DirecionarParaCadastro());
         }
 
-      
-
         #region AtributosPropriedades
         private string login = string.Empty;
         private string senha = string.Empty;
@@ -57,9 +55,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
         #endregion
 
         #region Metodos
-
-        private CancellationTokenSource _cancelTokenSource;
-        private bool _isCheckingLocation;
+               
         public async Task AutenticarUsuario()
         {
             try
@@ -81,7 +77,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
                     await Application.Current.MainPage
                         .DisplayAlert("Informação", mensagem, "Ok");
 
-                    Application.Current.MainPage = new ListagemView();
+                    Application.Current.MainPage = new AppShell();
                 }
                 else
                 {
@@ -113,11 +109,7 @@ namespace AppRpgEtec.ViewModels.Usuarios
 
                     await Application.Current.MainPage
                         .Navigation.PopAsync();//Remove a página da pilha de visualização
-                    Preferences.Set("UsuarioPerfil", mensagem, "Ok");
-                    Application.Current.MainPage = new ListagemView();
-
                 }
-
             }
             catch (Exception ex)
             {
