@@ -1,4 +1,7 @@
+using System.Collections.ObjectModel;
 using System.Runtime.InteropServices.Marshalling;
+using AppRpgEtec.Models;
+using AppRpgEtec.Services.Usuarios;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Maps;
 using Map = Microsoft.Maui.Controls.Maps.Map;
@@ -44,8 +47,11 @@ public class LocalizacaoViewModel_ : ContentPage
 		}
 	}
 
+	private UsuarioService uService;
 	public LocalizacaoViewModel_()
 	{
+		string token = Preferences.Get("UsuarioToken", string.Empty);
+		uService = new UsuarioService();
 		Content = new VerticalStackLayout
 		{
 			Children = {
@@ -54,4 +60,37 @@ public class LocalizacaoViewModel_ : ContentPage
 			}
 		};
 	}
+
+    public async void ExibirUsuariosNoMapa()
+    {
+        try
+        {
+            //using AppRpgEtec.Models
+            ObservableCollection<Usuario> ocUsuarios = await uService.GetUsuariosAsync();
+            List<Usuario> listaUsuarios = new List<Usuario>(ocUsuarios);
+            Map map = new Map();
+            foreach (Usuario u in listaUsuarios)
+            {
+                if (u.Latitude != null && u.Longitude != null)
+                {
+                    double latitude = (double)u.Latitude;
+                    double logitude = (double)u.Longitude;
+                    Location location = new Location(latitude, logitude);
+                    Pin pinAtual = new Pin()
+					{
+					Type = PinType.Place,
+					Label = u. Username,
+					Address = $"E-mail: {u.Email}",
+					Location = location
+					};
+                    map.Pins.Add(pinAtual);
+                }
+            }
+            MeuMapa = map;
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "OK");
+        }
+    }
 }
