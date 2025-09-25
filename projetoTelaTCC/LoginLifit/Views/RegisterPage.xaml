@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:LoginLifit.ViewModels"
+             x:Class="LoginLifit.Views.RegisterPage"
+             BackgroundColor="#90E05E"
+             Title="CADASTRAR-SE">
+
+    <ContentPage.BindingContext>
+        <viewmodels:RegisterViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Spacing="15" VerticalOptions="Center" Padding="30,0">
+
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+            <Entry Placeholder="Nome Completo" Text="{Binding FullName}" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
+        </Border>
+
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+            <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
+        </Border>
+
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+            <Entry Placeholder="Senha" Text="{Binding Password}" IsPassword="True" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
+        </Border>
+
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+            <Entry Placeholder="Confirmar Senha" Text="{Binding ConfirmPassword}" IsPassword="True" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
+        </Border>
+
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+            <Entry Placeholder="Nome de usuário" Text="{Binding Username}" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
+        </Border>
+
+        <Button Text="Criar conta"
+                Command="{Binding CreateAccountCommand}"
+                BackgroundColor="#2B3C45"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="50"
+                Margin="0,10,0,0"/>
+
+    </VerticalStackLayout>
+</ContentPage>
