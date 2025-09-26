@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:LifitLoginPAM.ViewModels"
+             x:Class="LifitLoginPAM.Views.LoginPage"
+             BackgroundColor="#90E05E"
+            Shell.NavBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <viewmodels:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid VerticalOptions="Center" HorizontalOptions="Center" RowSpacing="20" Padding="30,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Image Grid.Row="0" Source="logo.png" HeightRequest="200" HorizontalOptions="Center" />
+
+       
+
+        <Border Grid.Row="2" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+            <Entry Placeholder="Nome de Usuário"
+                Text="{Binding EmailOrUsername}"
+                PlaceholderColor="#80000000"
+                TextColor="Black"
+                Margin="10,0"/>
+        </Border>
+
+        <Border Grid.Row="3" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+            <Entry Placeholder="Senha"
+                Text="{Binding Password}"
+                IsPassword="True"
+                PlaceholderColor="#80000000"
+                TextColor="Black"
+                Margin="10,0"/>
+        </Border>
+
+        <Button Grid.Row="4"
+             Text="Login"
+             Command="{Binding LoginCommand}"
+             BackgroundColor="#2B3C45"
+             TextColor="White"
+             CornerRadius="10"
+             HeightRequest="50"/>
+
+        <Label Grid.Row="5"
+            Text="Criar conta"
+            TextColor="#262626"
+            HorizontalOptions="Center"
+            TextDecorations="Underline">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoToRegisterCommand}" />
+            </Label.GestureRecognizers>
+        </Label>
+
+    </Grid>
+</ContentPage>
