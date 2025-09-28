@@ -4,31 +4,35 @@
              xmlns:viewmodels="clr-namespace:LifitLoginPAM.ViewModels"
              x:Class="LifitLoginPAM.Views.RegisterPage"
               BackgroundColor="#90E05E"
-                Title="CADASTRAR-SE">
+                Shell.NavBarIsVisible="False">
     <ContentPage.BindingContext>
         <viewmodels:RegisterViewModel />
     </ContentPage.BindingContext>
 
-    <VerticalStackLayout Spacing="15" VerticalOptions="Center" Padding="30,0">
+    <VerticalStackLayout Spacing="15" VerticalOptions="Center" Padding="200,0">
 
-        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 5" BackgroundColor="#FFFFFF">
             <Entry Placeholder="Nome Completo" Text="{Binding FullName}" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
         </Border>
+        
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 5" BackgroundColor="#FFFFFF">
+            <Entry Placeholder="Nome de usuário" Text="{Binding Username}" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
+        </Border>
 
-        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 5" BackgroundColor="#FFFFFF">
             <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
         </Border>
 
-        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 5" BackgroundColor="#FFFFFF">
             <Entry Placeholder="Senha" Text="{Binding Password}" IsPassword="True" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
         </Border>
 
-        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 5" BackgroundColor="#FFFFFF">
             <Entry Placeholder="Confirmar Senha" Text="{Binding ConfirmPassword}" IsPassword="True" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
         </Border>
 
-        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
-            <Entry Placeholder="Nome de usuário" Text="{Binding Username}" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
+        <Border StrokeThickness="0" StrokeShape="RoundRectangle 5" BackgroundColor="#FFFFFF">
+            <Entry Placeholder="Biografia" Text="{Binding Biography}" PlaceholderColor="#80000000" TextColor="Black" Margin="10,0"/>
         </Border>
 
         <Button Text="Criar conta"

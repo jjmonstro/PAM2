@@ -11,7 +11,7 @@ namespace LifitLoginPAM.Services.Usuarios
     public class UsuarioService : Request
     {
         private readonly Request _request;
-        private const string _apiUrlBase = "https://lifit-augfbubbgtcydahz.brazilsouth-01.azurewebsites.net/usuario";
+        private const string _apiUrlBase = "http://localhost:8080/usuario";
         //Azure: https://lifit-augfbubbgtcydahz.brazilsouth-01.azurewebsites.net/
 
 
@@ -30,34 +30,20 @@ namespace LifitLoginPAM.Services.Usuarios
 
         public async Task<Usuario> PostRegistrarUsuarioAsync(Usuario u)
         {
-            string urlComplementar = "/Registrar";
-            u.Id = await _request.PostReturnIntAsync(_apiUrlBase + urlComplementar, u, string.Empty);
+            
+            u = await _request.PostAsync(_apiUrlBase, u, string.Empty);
 
             return u;
         }
 
-        public async Task<Usuario> GetAutenticarUsuarioAsync(Usuario u, string nome, string senha)
+        public async Task<Usuario> PostAutenticarUsuarioAsync(Usuario u)
         {
-            string urlComplementar = "/" + nome + "/" + senha;
-            u = await _request.GetAsync<Usuario>(_apiUrlBase + urlComplementar, string.Empty);
+            string urlComplementar = "/autenticar";
+            u = await _request.PostAsync(_apiUrlBase + urlComplementar, u, string.Empty);
 
             return u;
         }
 
-        public async Task<int> PutAtualizarLocalizacaoAsync(Usuario u)
-        {
-            string urlComplementar = "/AtualizarLocalizacao";
-            var result = await _request.PutAsync(_apiUrlBase + urlComplementar, u, _token);
-            return result;
-        }
-        //using System.Collections.ObjectModel
-        public async Task<ObservableCollection<Usuario>> GetUsuariosAsync()
-        {
-            string urlComplementar = string.Format("{0}", "/GetAll");
-            ObservableCollection<Models.Usuario> listaUsuarios = await
-            _request.GetAsync<ObservableCollection<Models.Usuario>>(_apiUrlBase + urlComplementar,
-            _token);
-            return listaUsuarios;
-        }
+        
     }
 }

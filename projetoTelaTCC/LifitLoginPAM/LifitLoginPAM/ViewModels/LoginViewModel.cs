@@ -39,7 +39,7 @@ namespace LifitLoginPAM.ViewModels
         public ICommand GoToRegisterCommand { get; }
 
         public ICommand LoginCommand { get; set; }
-        public ICommand RegistrarCommand { get; set; }
+        
 
         private UsuarioService _uService;
         public LoginViewModel()
@@ -51,7 +51,7 @@ namespace LifitLoginPAM.ViewModels
             // Comando para navegar para a tela de cadastro
             GoToRegisterCommand = new Command(async () => await OnGoToRegisterClicked());
             LoginCommand = new Command(async () => await AutenticarUsuario());
-            RegistrarCommand = new Command(async () => await RegistrarUsuario());
+          
         }
 
         private async Task OnLoginClicked()
@@ -79,50 +79,20 @@ namespace LifitLoginPAM.ViewModels
             Usuario u = new Usuario();
             u.NomeUsuario = _emailOrUsername;
             u.Senha = _password;
-            Usuario uAutenticado = await _uService.GetAutenticarUsuarioAsync(u,u.NomeUsuario,u.Senha);
+            Usuario uAutenticado = await _uService.PostAutenticarUsuarioAsync(u);
             if (uAutenticado == null)
             {
                 await Application.Current.MainPage
                         .DisplayAlert("Informação", "Dados incorretos :(", "Ok");
             }
             else { 
-                if (uAutenticado.Id == 0)
-                    {
-                        await Application.Current.MainPage
-                                .DisplayAlert("Informação", "Dados incorretos :(", "Ok");
-                    }
-                else
-                    {
+                
                         await Shell.Current.GoToAsync(nameof(HomePage));
-                    }
+                    
             }
             
         }
 
-        public async Task RegistrarUsuario()//Método para registrar um usuário     
-        {
-            try
-            {
-                Usuario u = new Usuario();
-                u.NomeUsuario = _emailOrUsername;
-                u.Senha = _password;
-
-                Usuario uRegistrado = await _uService.PostRegistrarUsuarioAsync(u);
-
-                if (uRegistrado.Id != 0)
-                {
-                    string mensagem = $"Usuário Id {uRegistrado.Id} registrado com sucesso.";
-                    await Application.Current.MainPage.DisplayAlert("Informação", mensagem, "Ok");
-
-                    await Application.Current.MainPage
-                        .Navigation.PopAsync();//Remove a página da pilha de visualização
-                }
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage
-                    .DisplayAlert("Informação", ex.Message + " Detalhes: " + ex.InnerException, "Ok");
-            }
-        }
+        
     }
 }

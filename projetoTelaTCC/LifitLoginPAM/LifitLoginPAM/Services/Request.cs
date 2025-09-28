@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -37,14 +38,21 @@ namespace LifitLoginPAM.Services
 
             httpClient.DefaultRequestHeaders.Authorization
             = new AuthenticationHeaderValue("Bearer", token);
-
-            var content = new StringContent(JsonConvert.SerializeObject(data));
+            Debug.WriteLine("DADOSSSSSSSSSS"+uri + JsonConvert.SerializeObject(data));
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+            };
+            var json = JsonConvert.SerializeObject(data, settings);
+            Debug.WriteLine("DADOSSSSSSSSSS222222" + json );
+            var content = new StringContent(json);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
             HttpResponseMessage response = await httpClient.PostAsync(uri, content);
             string serialized = await response.Content.ReadAsStringAsync();
             TResult result = data;
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.OK || response.StatusCode == System.Net.HttpStatusCode.Created)
                 result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
             else
                 throw new Exception(serialized);

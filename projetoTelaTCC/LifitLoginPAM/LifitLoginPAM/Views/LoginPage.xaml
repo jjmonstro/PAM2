@@ -23,7 +23,7 @@
 
        
 
-        <Border Grid.Row="2" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+        <Border Grid.Row="2" StrokeThickness="0" StrokeShape="RoundRectangle 5" BackgroundColor="#FFFFFF">
             <Entry Placeholder="Nome de Usuário"
                 Text="{Binding EmailOrUsername}"
                 PlaceholderColor="#80000000"
@@ -31,7 +31,7 @@
                 Margin="10,0"/>
         </Border>
 
-        <Border Grid.Row="3" StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="#FFFFFF">
+        <Border Grid.Row="3" StrokeThickness="0" StrokeShape="RoundRectangle 5" BackgroundColor="#FFFFFF">
             <Entry Placeholder="Senha"
                 Text="{Binding Password}"
                 IsPassword="True"

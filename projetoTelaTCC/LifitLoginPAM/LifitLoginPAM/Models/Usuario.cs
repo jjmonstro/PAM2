@@ -24,5 +24,8 @@ namespace LifitLoginPAM.Models
 
         [JsonPropertyName("nomeUsuario")]
         public string NomeUsuario { get; set; } = string.Empty;
+
+        [JsonPropertyName("nomeUsuario")]
+        public string Biografia { get; set; } = string.Empty;
     }
 }

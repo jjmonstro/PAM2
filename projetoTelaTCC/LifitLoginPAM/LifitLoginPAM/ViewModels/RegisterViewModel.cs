@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using LifitLoginPAM.Models;
+using LifitLoginPAM.Services.Usuarios;
 
 namespace LifitLoginPAM.ViewModels
 {
     public class RegisterViewModel : BaseViewModel
     {
+        private UsuarioService _uService;
         // Propriedades para cada campo do formulário
         private string _fullName;
         public string FullName { get => _fullName; set { _fullName = value; OnPropertyChanged(); } }
@@ -25,21 +28,62 @@ namespace LifitLoginPAM.ViewModels
         private string _username;
         public string Username { get => _username; set { _username = value; OnPropertyChanged(); } }
 
+        private string _biography;
+        public string Biography { get => _biography; set { _biography = value; OnPropertyChanged(); } }
+
         public ICommand CreateAccountCommand { get; }
 
         public RegisterViewModel()
         {
             CreateAccountCommand = new Command(async () => await OnCreateAccount());
+            _uService = new UsuarioService();
         }
 
         private async Task OnCreateAccount()
         {
-            // Lógica de validação e criação de conta viria aqui.
-            // Por enquanto, apenas exibimos um alerta e voltamos para a tela de login.
-            await Application.Current.MainPage.DisplayAlert("Sucesso", "Conta criada!", "OK");
+            try
+            {
+                Usuario u = new();
+                u.NomeUsuario = _username;
+                u.Senha = _password;
+                u.Nome = _fullName;
+                u.Biografia = _biography;
+                u.Email = _email;
 
-            // Navega de volta para a página anterior (Login)
-            await Shell.Current.GoToAsync("..");
+                if (_password!= _confirmPassword)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Erro","Confirmação de senha e senha diferentes","Ok");
+                        return;
+                    }
+                
+                Usuario uRegistrado = await _uService.PostRegistrarUsuarioAsync(u);
+
+                if (uRegistrado.NomeUsuario != null)
+                {
+                    string mensagem = $"Usuário {uRegistrado.NomeUsuario} registrado com sucesso.";
+                    await Application.Current.MainPage.DisplayAlert("Parabéns", mensagem, "Ok");
+
+                    await Application.Current.MainPage
+                        .Navigation.PopAsync();//Remove a página da pilha de visualização
+                }
+            }catch(Exception ex)
+            {
+                if (!_email.Contains("@"))
+                {
+                    await Application.Current.MainPage.DisplayAlert("ERRO", "Dados inválidos\nconfira seu email", "Ok");
+
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("ERRO", "Nome de usuário ou email já existentes", "Ok");
+                }
+                
+                
+            }
+                
+            
+            
+            
         }
     }
 }
